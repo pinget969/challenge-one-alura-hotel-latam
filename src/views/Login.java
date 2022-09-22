@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import conexion.ControlLogin;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -192,7 +195,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				Loginar();
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -234,17 +237,22 @@ public class Login extends JFrame {
 		header.setLayout(null);
 	}
 	
-	private void Login() {
+	private void Loginar() {
 		 String Usuario= "admin";
 	     String Contraseña="admin";
-
+	     
 	        String contrase=new String (txtContrasena.getPassword());
-
+	        
+	         
+	        
 	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
 	        }else {
+	        	System.out.println(txtUsuario.getText());
+	        	System.out.println(contrase);
+	        	
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
 	        }
 	} 

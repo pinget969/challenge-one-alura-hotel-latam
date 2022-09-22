@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import conexion.ControlHotel;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -24,6 +28,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
@@ -57,6 +62,60 @@ public class Busqueda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	//Agregado por mi
+	
+	//Valores de las Reservas:
+	private void cargarTablaReserva() {
+		try {
+			List<Map<String, String>> reservas = ControlHotel.listar() ;
+			
+			try {
+				reservas.forEach(reserva -> modelo.addRow(
+			                new Object[] {
+			                		reserva.get("id"),
+			                		reserva.get("fecha_entrada"),
+			                		reserva.get("fechaSalida"),
+			                		reserva.get("valor"),
+			                		reserva.get("forma_de_pago") }));
+			} catch (Exception e){
+				throw e;
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	//Valores de los Huespedes:
+	private void cargarTablaHuespedes() {
+		try {
+			List<Map<String, String>> reservas = ControlHotel.listar2() ;
+			
+			try {
+				reservas.forEach(reserva -> modeloH.addRow(
+			                new Object[] {
+			                		reserva.get("id"),
+			                		reserva.get("nombre"),
+			                		reserva.get("apellido"),
+			                		reserva.get("fecha_nacimiento"),
+			                		reserva.get("nacionalidad"),
+			                		reserva.get("telefono"),
+			                		reserva.get("id_reserva") }));
+			} catch (Exception e){
+				throw e;
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	//Creado por mi
+	/*public void configurarCamposDelFormulario() {
+		labelNombre = new JLabel("Nombre dle huesped");
+	} */
 	public Busqueda() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,13 +141,17 @@ public class Busqueda extends JFrame {
 		lblNewLabel_4.setBounds(331, 62, 280, 42);
 		contentPane.add(lblNewLabel_4);
 		
+		
 		JTabbedPane panel = new JTabbedPane(JTabbedPane.TOP);
 		panel.setBackground(new Color(12, 138, 199));
 		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel.setBounds(20, 169, 865, 328);
 		contentPane.add(panel);
 
-		
+		JLabel etiqueta = new JLabel();
+		etiqueta.setText("hola");
+		etiqueta.setBounds(10, 11, 865, 300);
+		contentPane.add(etiqueta);
 		
 		
 		tbReservas = new JTable();
@@ -102,7 +165,11 @@ public class Busqueda extends JFrame {
 		modelo.addColumn("Valor");
 		modelo.addColumn("Forma de Pago");
 		
-		
+		//Agregado por mi
+				cargarTablaReserva(); 
+				
+				
+		// private void configurartablaDeContenido(Container container){
 		tbHuespedes = new JTable();
 		tbHuespedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -115,6 +182,10 @@ public class Busqueda extends JFrame {
 		modeloH.addColumn("Nacionalidad");
 		modeloH.addColumn("Telefono");
 		modeloH.addColumn("Numero de Reserva");
+		
+		cargarTablaHuespedes();
+		
+		
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Busqueda.class.getResource("/imagenes/Ha-100px.png")));
@@ -129,6 +200,7 @@ public class Busqueda extends JFrame {
 			     
 			}
 		});
+		
 		header.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
