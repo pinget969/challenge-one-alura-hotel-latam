@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -158,7 +159,18 @@ public class MenuUsuario extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
+				int resp=JOptionPane.showConfirmDialog(null,"¿Está seguro de cerrar sesion?");
+			      if (JOptionPane.OK_OPTION == resp){
+			   System.out.println("Selecciona opción Afirmativa");
+			   Login irLogin = new Login();
+			   irLogin.setVisible(true);
+			   dispose();	
+			  
+			 }
+			      else{
+			    System.out.println("No selecciona una opción afirmativa");
+			   }
+			      //System.exit(0);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

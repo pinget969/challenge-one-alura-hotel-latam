@@ -1,19 +1,19 @@
 package conexion;
 
 import java.sql.SQLException;
-
+/*
 import views.Login;
 
 public class ValidarLogin {
 	
-	/*
+	
 	public static String validarIngreso() throws SQLException{
 		String saludo = "hola" + ControlLogin.loginOn();
 		
 		
 		return saludo;
 		
-	} */
+	} 
 
 	public static String validarIngreso(String string) throws SQLException {
 		String saludo = "hola" + ControlLogin.loginOn();
@@ -24,4 +24,4 @@ public class ValidarLogin {
 		return suma;
 	}
 	
-}
+}*/
