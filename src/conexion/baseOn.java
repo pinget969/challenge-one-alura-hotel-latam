@@ -13,19 +13,22 @@ import views.MenuPrincipal;
 public class baseOn {
 	 public static void main(String[] args) throws SQLException{
 		 
-		 Busqueda control = new Busqueda();
-		 control.setVisible(true);
-		 control.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 //Busqueda control = new Busqueda();
+		 //control.setVisible(true);
+		
 		 
 		 MenuPrincipal menu = new MenuPrincipal();
 		 menu.setVisible(true);
+		 menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 
-		 ControlLogin.loginOn();
+		 //ControlLogin.loginOn(); //Prueba de login
 		 //ValidarLogin.validarIngreso();
 		// String saludo = ValidarLogin.validarIngreso("wea");
 		// String suma = ValidarLogin.validarIngreso("wea");
 		// System.out.println(suma);
-		 //Login.ValidarUsuario();
+		// Login.ValidarUsuario(); 
+		 
+		 
 		 
 		 
 	}

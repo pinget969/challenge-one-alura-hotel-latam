@@ -14,7 +14,6 @@ import java.util.Set;
 import views.Login;
 
 public class ControlLogin {
-	@SuppressWarnings("unlikely-arg-type")
 	public static boolean loginOn() throws SQLException{
 		Connection con = new conecctionfactory().recuperaConexion();
 		Statement statement = con.createStatement();

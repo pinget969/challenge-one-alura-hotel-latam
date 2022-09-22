@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsuario;
+	private static JTextField txtUsuario;
 	private static JPasswordField txtContrasena;
 	int xMouse, yMouse;
 	private JLabel labelExit;
@@ -199,7 +200,15 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Loginar();
+			
+					Login.ValidarUsuario();
+				 
+				try {
+					Loginar();
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -246,28 +255,29 @@ public class Login extends JFrame {
 	///f
 	
 	public static Map<String, String> ValidarUsuario() {
-		String Usuario= "uviuda";
-	    String Contraseña="passnegra";
-	    String contrase1=new String (txtContrasena.getPassword());
-	    
+		
+		//Usuario= "uviuda";
+	    //contraseña="passnegra";
+		
+	    String contrase=new String (txtContrasena.getPassword());
+	    String usuario = new String(txtUsuario.getText());
 	    
 		Map<String, String> dataUsuario = new HashMap<String, String>();
-		dataUsuario.put(Usuario, contrase1);
+		dataUsuario.put(usuario, contrase);
 		
 		System.out.println("LA WEA BIEN" + dataUsuario);
 	    
 	    return dataUsuario;
 	}
 	
-	private void Loginar() {
-		 String Usuario= "admin";
-	     String Contraseña="admin";
+	private void Loginar() throws SQLException {
+		ControlLogin.loginOn();
 	     
 	        String contrase=new String (txtContrasena.getPassword());
 	        
 	         
 	        
-	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
+	        if(ControlLogin.loginOn()){
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
