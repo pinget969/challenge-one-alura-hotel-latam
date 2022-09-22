@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 
 import views.Busqueda;
-
+import views.Login;
 import views.MenuPrincipal;
 
 public class baseOn {
@@ -21,6 +21,12 @@ public class baseOn {
 		 menu.setVisible(true);
 		 
 		 ControlLogin.loginOn();
+		 //ValidarLogin.validarIngreso();
+		// String saludo = ValidarLogin.validarIngreso("wea");
+		// String suma = ValidarLogin.validarIngreso("wea");
+		// System.out.println(suma);
+		 //Login.ValidarUsuario();
+		 
 		 
 	}
 	 

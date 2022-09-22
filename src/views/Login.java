@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends JFrame {
 
@@ -29,9 +31,11 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JPasswordField txtContrasena;
+	private static JPasswordField txtContrasena;
 	int xMouse, yMouse;
 	private JLabel labelExit;
+	private String usu;
+	private String pass;
 
 	/**
 	 * Launch the application.
@@ -235,6 +239,24 @@ public class Login extends JFrame {
 		header.setBounds(0, 0, 784, 36);
 		panel.add(header);
 		header.setLayout(null);
+		
+		
+	}
+	 
+	///f
+	
+	public static Map<String, String> ValidarUsuario() {
+		String Usuario= "uviuda";
+	    String Contraseña="passnegra";
+	    String contrase1=new String (txtContrasena.getPassword());
+	    
+	    
+		Map<String, String> dataUsuario = new HashMap<String, String>();
+		dataUsuario.put(Usuario, contrase1);
+		
+		System.out.println("LA WEA BIEN" + dataUsuario);
+	    
+	    return dataUsuario;
 	}
 	
 	private void Loginar() {

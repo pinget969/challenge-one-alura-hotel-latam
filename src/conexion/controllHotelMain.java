@@ -1,4 +1,4 @@
-package conexion;
+/*package conexion;
 
 import java.util.List;
 
@@ -20,3 +20,4 @@ public class controllHotelMain {
 	
 
 }
+*/
