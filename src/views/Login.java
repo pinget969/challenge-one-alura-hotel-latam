@@ -200,7 +200,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			
+					
 					Login.ValidarUsuario();
 				 
 				try {
