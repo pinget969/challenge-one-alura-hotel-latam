@@ -165,8 +165,25 @@ public static Connection getConnection() throws SQLException {
 		statement.setString(4, modificarReserva.get("forma_de_pago"));
 		statement.setInt(5, Integer.parseInt(modificarReserva.get("id")));
 		statement.execute();
-		System.out.println("Modificacion exitosa");
+		System.out.println("Modificacion RESERVA exitosa");
+		con.close();
 		return modificarReserva;
+		
+	}
+	public static Map<String, String> editarHuesped(Map<String, String> modificarHuesped) throws SQLException { 
+		Connection con = new conecctionfactory().recuperaConexion();
+		PreparedStatement statement = con.prepareStatement("UPDATE huespedes SET nombre = ?, apellido = ?, fecha_nacimiento = ?, nacionalidad = ?, telefono = ? WHERE id =?");
+		
+		statement.setString(1, modificarHuesped.get("nombre"));
+		statement.setString(2, modificarHuesped.get("apellido"));
+		statement.setString(3, modificarHuesped.get("fecha_nacimiento"));
+		statement.setString(4, modificarHuesped.get("nacionalidad"));
+		statement.setInt(5, Integer.parseInt(modificarHuesped.get("telefono")));
+		statement.setInt(6, Integer.parseInt(modificarHuesped.get("id")));
+		statement.execute();
+		System.out.println("Modificacion HUESPED exitosa");
+		con.close();
+		return modificarHuesped;
 		
 	}
 }

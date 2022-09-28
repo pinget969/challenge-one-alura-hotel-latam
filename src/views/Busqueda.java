@@ -312,16 +312,21 @@ public class Busqueda extends JFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(tbReservas.getSelectedRow());
-				int row = tbReservas.getSelectedRow();
-				if(row != -1) {
-					String editarReservaFilaID = (String) tbReservas.getModel().getValueAt(row, 0);
+				
+				
+				//int row2 = tbHuespedes.getSelectedRow();
+				
+				editar();
+				
+				/*if(row != -1) {
 					
-						editar(editarReservaFilaID);
+					String editarHuespedFilaID = (String)  tbHuespedes.getModel().getValueAt(row2, 0);
+						
+						editar();
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes seleccionar la reserva modificada", "Advertencia", JOptionPane.WARNING_MESSAGE);
-				}
+				}*/
 				
 			}
 		});
@@ -400,23 +405,76 @@ public class Busqueda extends JFrame {
 			System.out.println("Error Inesperado");
 		}
 	}
-	public void editar(String editarReservaFilaID) {
-		
+	public void editar() {
 		int row = tbReservas.getSelectedRow();
-		Map<String, String> modificarReserva = new HashMap<String, String>();
+		int row2 = tbHuespedes.getSelectedRow();
 		
+		
+		
+		boolean validarEditarReserva=(tbReservas.getSelectedRow() > 0);
+		boolean validarEditarHuesped=(tbHuespedes.getSelectedRow()> 0); //return False
+		
+		System.out.println("1 " +validarEditarReserva + tbReservas.getSelectedRow());
+		
+		if(!validarEditarReserva && !validarEditarHuesped) {
+			System.out.println("Debe selecionar el elemento que desea Editar ");
+		} else if(validarEditarReserva) {
+			System.out.println("2 " +validarEditarReserva + tbReservas.getSelectedRow());
+		
+		Map<String, String> modificarReserva = new HashMap<String, String>();
+		String editarReservaFilaID = (String) tbReservas.getModel().getValueAt(row, 0);
 		modificarReserva.put("id", editarReservaFilaID);
 		modificarReserva.put("fecha_entrada", (String) tbReservas.getModel().getValueAt(row, 1));
 		modificarReserva.put("fechaSalida", (String) tbReservas.getModel().getValueAt(row, 2));
 		modificarReserva.put("valor", (String) tbReservas.getModel().getValueAt(row, 3));
 		modificarReserva.put("forma_de_pago", (String) tbReservas.getModel().getValueAt(row, 4));
 		try {
+			System.out.println("3 " +validarEditarReserva);
 			ControlHotel.editarReserva(modificarReserva);
+			limpiar();
+			cargarTablaReserva();
+			cargarTablaHuespedes();
+			
+		
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		} 
+		
+		}else if(validarEditarHuesped) {
+			Map<String, String> modificarHuesped = new HashMap<String, String>();
+			String editarHuespedFilaID = (String) tbHuespedes.getModel().getValueAt(row2, 0);
+			System.out.println("editando Huesped id "+ editarHuespedFilaID);
+			System.out.println("aca 1 " +tbHuespedes.getModel().getValueAt(row2, 0));
+			System.out.println("aca " +tbHuespedes.getModel().getValueAt(row2, 1));
+			System.out.println("aca 3 " +tbHuespedes.getModel().getValueAt(row2, 2));
+			System.out.println("aca " +tbHuespedes.getModel().getValueAt(row2, 3));
+			System.out.println("aca 5 " +tbHuespedes.getModel().getValueAt(row2, 4));
+			System.out.println("aca " +tbHuespedes.getModel().getValueAt(row2, 5));
+			System.out.println("aca 7 " +tbHuespedes.getModel().getValueAt(row2, 6));
+			
+			modificarHuesped.put("id", editarHuespedFilaID);
+			modificarHuesped.put("nombre", (String) tbHuespedes.getModel().getValueAt(row2, 1));
+			modificarHuesped.put("apellido", (String) tbHuespedes.getModel().getValueAt(row2, 2));
+			modificarHuesped.put("fecha_nacimiento", (String) tbHuespedes.getModel().getValueAt(row2, 3));
+			modificarHuesped.put("nacionalidad", (String) tbHuespedes.getModel().getValueAt(row2, 4));
+			modificarHuesped.put("telefono", (String) tbHuespedes.getModel().getValueAt(row2, 5));
+			//modificarHuesped.put("id_reserva", (String) tbHuespedes.getModel().getValueAt(row2, 6));
+			try {
+				ControlHotel.editarHuesped(modificarHuesped);
+				limpiar();
+				cargarTablaReserva();
+				cargarTablaHuespedes();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		} else {
+			System.out.println("Error inesperado Edicion Huesped");
 		}
-		
-		
+		/* else if(validarEditarHuesped) {
+			int row = tbHuespedes.getSelectedRow(editarHuespedFilaID);
+			Map<String, String> modificarHuesped = new HashMap<String, String>();
+			modificarHuesped.put("id", )
+		}*/
 	}
 	
 	
