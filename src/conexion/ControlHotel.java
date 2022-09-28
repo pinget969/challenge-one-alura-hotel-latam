@@ -97,7 +97,7 @@ public static Connection getConnection() throws SQLException {
 	
 	
 	
-	public static void deleteDatos(String id) throws SQLException {
+	public static void deleteDatosHuesped(String id) throws SQLException {
 		String SQL = "DELETE from huespedes WHERE id=" +id;
 		 
 		int res = 0;
@@ -105,7 +105,35 @@ public static Connection getConnection() throws SQLException {
 			 PS = getConnection().prepareStatement(SQL);
 			 res = PS.executeUpdate();
 			 if(res >0) {
-				 System.out.println("Registro eliminado");
+				 System.out.println("Huesped eliminado");
+			 }
+		} catch (SQLException e) {
+			System.err.println("Error al modificar los datos en la db" + e.getMessage());
+		}
+		ControlHotel.close();
+	}
+	public static void deleteDatosHuespedViculado(String id_reserva) throws SQLException {
+		String SQL = "DELETE from huespedes WHERE id_reserva=" +id_reserva;
+		int res = 0;
+		try {
+			 PS = getConnection().prepareStatement(SQL);
+			 res = PS.executeUpdate();
+			 if(res >0) {
+				 System.out.println("Huesped eliminado");
+			 }
+		} catch (SQLException e) {
+			System.err.println("Error al modificar los datos en la db" + e.getMessage());
+		}
+		ControlHotel.close();
+	}
+	public static void deleteDatosReservaViculada(String id) throws SQLException {
+		String SQL = "DELETE from reservas WHERE id=" +id;
+		int res = 0;
+		try {
+			 PS = getConnection().prepareStatement(SQL);
+			 res = PS.executeUpdate();
+			 if(res >0) {
+				 System.out.println("Huesped eliminado");
 			 }
 		} catch (SQLException e) {
 			System.err.println("Error al modificar los datos en la db" + e.getMessage());
@@ -113,4 +141,20 @@ public static Connection getConnection() throws SQLException {
 		ControlHotel.close();
 	}
 	
+	
+	public static void deleteDatosReserva(String id) throws SQLException {
+		String SQL = "DELETE from reservas WHERE id=" +id;
+		 
+		int res = 0;
+		try {
+			 PS = getConnection().prepareStatement(SQL);
+			 res = PS.executeUpdate();
+			 if(res >0) {
+				 System.out.println("Reserva eliminado");
+			 }
+		} catch (SQLException e) {
+			System.err.println("Error al modificar los datos en la db" + e.getMessage());
+		}
+		ControlHotel.close();
+	}
 }

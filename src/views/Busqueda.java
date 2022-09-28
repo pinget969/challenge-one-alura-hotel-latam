@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import conexion.ControlHotel;
-import conexion.Eliminar;
+//import conexion.Eliminar;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -333,21 +333,15 @@ public class Busqueda extends JFrame {
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("ELIMINADO");
-				int fila = tbHuespedes.getSelectedRowCount(); //Nos dirá que fila es seleccionada. 
-				if(fila < 1) {
-					System.out.println("Debe selecionar el elemento que desea borrar ");
-				} else {
-					try {
-						 ControlHotel.deleteDatos(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString()); //Eliminando lo seleccionado
-						 limpiar();
-						 cargarTablaHuespedes();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
+				try {
+					eliminar();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				
+				limpiar();
+				cargarTablaReserva();
+				cargarTablaHuespedes();
 			}
 		});
 		
@@ -368,36 +362,33 @@ public class Busqueda extends JFrame {
 	}
 	public void limpiar() {
 		modeloH.setRowCount(0); 
-		modeloH.setRowCount(0);
+		modelo.setRowCount(0);
 	}
-	/*private boolean noTieneFilaElegidaHuespedes() {
-		return tbHuespedes.getSelectedRowCount() == 0 || tbHuespedes.getSelectedColumnCount() == 0;
-	}
-	public void Eliminar() throws SQLException {
-		System.out.println("elimnando...");
-		if(noTieneFilaElegidaHuespedes()) {
-			JOptionPane.showMessageDialog(this, "Por favor, elija el item a eliminar");
-			return;
-		}
-		//if (noTieneFilaElegidaHuespedes()) {
+	public void eliminar() throws SQLException {
+		System.out.println("ELIMINADO");
+		int filaH = tbHuespedes.getSelectedRowCount(); //Nos dirá que fila es seleccionada de Huesped
+		int filaR = tbReservas.getSelectedRowCount();
+		//Boolean validarEliminar ;
+		boolean validarEliminarHuesped=(filaH == 0); 
+		boolean validarEliminarReserva=(filaR == 0); //TRUE al no seleccionar
+		
+		if(validarEliminarHuesped && validarEliminarReserva) {
+			System.out.println("Debe selecionar el elemento que desea borrar ");
+		} else if (filaH > 0) {
+				 ControlHotel.deleteDatosHuesped(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString()); //Eliminando lo seleccionado 
+				 ControlHotel.deleteDatosReservaViculada(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 6).toString());
+				 System.out.println("SALIENDO ID HUESPED "+ tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 6).toString());
 			
-			Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
-			.ifPresentOrElse(fila -> {
-				Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
-				try {
-					Eliminar.eliminarHuesped(id);
-				} catch (SQLException e) {
-				
-					e.printStackTrace();
-				}
-
-				Exito.main(null);
-			}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
-} */
-	//}
+		} else if(filaR > 0) {
+			System.out.println("Borrando Reserva y Huesped vinculado");
 	
-	//
-	
+				ControlHotel.deleteDatosHuespedViculado(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+				ControlHotel.deleteDatosReserva(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+		}
+		else {
+			System.out.println("Error Inesperado");
+		}
+	}
 	
 	
 //Código que permite mover la ventana por la pantalla según la posición de "x" y "y"

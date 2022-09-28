@@ -6,8 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
-
+/*
 public class Eliminar  {
+	
 	public static String eliminarHuesped(String id) throws SQLException {
 		Connection con = new conecctionfactory().recuperaConexion();
 		//Statement statement = con.createStatement();
@@ -33,4 +34,4 @@ public class Eliminar  {
 		
 	}
 	
-}
+}*/
