@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -311,7 +312,17 @@ public class Busqueda extends JFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				System.out.println(tbReservas.getSelectedRow());
+				int row = tbReservas.getSelectedRow();
+				if(row != -1) {
+					String editarReservaFilaID = (String) tbReservas.getModel().getValueAt(row, 0);
+					
+						editar(editarReservaFilaID);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes seleccionar la reserva modificada", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				
 			}
 		});
 		
@@ -388,6 +399,24 @@ public class Busqueda extends JFrame {
 		else {
 			System.out.println("Error Inesperado");
 		}
+	}
+	public void editar(String editarReservaFilaID) {
+		
+		int row = tbReservas.getSelectedRow();
+		Map<String, String> modificarReserva = new HashMap<String, String>();
+		
+		modificarReserva.put("id", editarReservaFilaID);
+		modificarReserva.put("fecha_entrada", (String) tbReservas.getModel().getValueAt(row, 1));
+		modificarReserva.put("fechaSalida", (String) tbReservas.getModel().getValueAt(row, 2));
+		modificarReserva.put("valor", (String) tbReservas.getModel().getValueAt(row, 3));
+		modificarReserva.put("forma_de_pago", (String) tbReservas.getModel().getValueAt(row, 4));
+		try {
+			ControlHotel.editarReserva(modificarReserva);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
 	}
 	
 	

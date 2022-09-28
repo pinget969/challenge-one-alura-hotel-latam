@@ -112,6 +112,21 @@ public static Connection getConnection() throws SQLException {
 		}
 		ControlHotel.close();
 	}
+	public static void deleteDatosReserva(String id) throws SQLException {
+		String SQL = "DELETE from reservas WHERE id=" +id;
+		 
+		int res = 0;
+		try {
+			 PS = getConnection().prepareStatement(SQL);
+			 res = PS.executeUpdate();
+			 if(res >0) {
+				 System.out.println("Reserva eliminado");
+			 }
+		} catch (SQLException e) {
+			System.err.println("Error al modificar los datos en la db" + e.getMessage());
+		}
+		ControlHotel.close();
+	}
 	public static void deleteDatosHuespedViculado(String id_reserva) throws SQLException {
 		String SQL = "DELETE from huespedes WHERE id_reserva=" +id_reserva;
 		int res = 0;
@@ -141,20 +156,45 @@ public static Connection getConnection() throws SQLException {
 		ControlHotel.close();
 	}
 	
-	
-	public static void deleteDatosReserva(String id) throws SQLException {
-		String SQL = "DELETE from reservas WHERE id=" +id;
-		 
-		int res = 0;
-		try {
-			 PS = getConnection().prepareStatement(SQL);
-			 res = PS.executeUpdate();
-			 if(res >0) {
-				 System.out.println("Reserva eliminado");
-			 }
-		} catch (SQLException e) {
-			System.err.println("Error al modificar los datos en la db" + e.getMessage());
-		}
-		ControlHotel.close();
+	public static Map<String, String> editarReserva(Map<String, String> modificarReserva) throws SQLException { 
+		Connection con = new conecctionfactory().recuperaConexion();
+		PreparedStatement statement = con.prepareStatement("UPDATE reservas SET fecha_entrada = ?, fechaSalida = ?, valor = ?, forma_de_pago = ? WHERE id =?");
+		statement.setString(1, modificarReserva.get("fecha_entrada"));
+		statement.setString(2, modificarReserva.get("fechaSalida"));
+		statement.setInt(3, Integer.parseInt(modificarReserva.get("valor")));
+		statement.setString(4, modificarReserva.get("forma_de_pago"));
+		statement.setInt(5, Integer.parseInt(modificarReserva.get("id")));
+		statement.execute();
+		System.out.println("Modificacion exitosa");
+		return modificarReserva;
+		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
