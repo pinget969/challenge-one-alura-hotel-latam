@@ -8,7 +8,10 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
 
-import conexion.ControlReserva;
+//import conexion.ControlReservaHuesped;
+import conexion.Huesped;
+import conexion.HuespedDAO;
+import conexion.ReservaDao;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -22,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,6 +122,7 @@ public class RegistroHuesped extends JFrame {
 			     labelAtras.setForeground(Color.white);
 			}
 		});
+		
 		btnAtras.setLayout(null);
 		btnAtras.setBackground(new Color(12, 138, 199));
 		btnAtras.setBounds(0, 0, 53, 36);
@@ -264,8 +269,27 @@ public class RegistroHuesped extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				String nombreHuesped = txtNombre.getText();
+				String apellidoHuesped = txtApellido.getText();
+				SimpleDateFormat sdf = new SimpleDateFormat();
+				String fechaNacimientoHuesped = sdf.format(txtFechaN.getDate());
+				String nacionalidadHuesped = (String) txtNacionalidad.getSelectedItem();
+				int telefonoHuesped = Integer.parseInt( txtTelefono.getText());
 				
-				ControlReserva.datosHuesped(txtNombre, txtApellido, txtTelefono, txtFechaN, txtNacionalidad);
+				
+				int id = ReservaDao.getId();
+				Huesped huesped = new Huesped(nombreHuesped, apellidoHuesped, fechaNacimientoHuesped, nacionalidadHuesped, telefonoHuesped, id);
+				
+				System.out.println("SALIENDO HUESPED NUEVO");
+				try {
+					HuespedDAO.saveReserva(huesped);
+					System.out.println("Huesped CONFIRMADo ...");
+					Exito.main(null);
+				} catch (SQLException e2) {
+					
+					e2.printStackTrace();
+				}
+				
 				
 			}
 		});

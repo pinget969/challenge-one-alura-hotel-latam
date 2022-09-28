@@ -26,6 +26,7 @@ public class baseOn {
 		 
 		 //ControlLogin.loginOn(); //Prueba de login
 		 //ValidarLogin.validarIngreso();
+		 
 		// String saludo = ValidarLogin.validarIngreso("wea");
 		// String suma = ValidarLogin.validarIngreso("wea");
 		// System.out.println(suma);

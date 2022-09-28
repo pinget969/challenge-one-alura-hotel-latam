@@ -14,6 +14,10 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+
+import conexion.Reserva;
+import conexion.ReservaDao;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -67,6 +71,8 @@ public class ReservasView extends JFrame {
 	 * Create the frame.
 	 */
 	public ReservasView() {
+		
+		
 		super("Reserva");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +87,7 @@ public class ReservasView extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
-
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
@@ -149,7 +155,6 @@ public class ReservasView extends JFrame {
 		txtFechaS.setFont(new Font("Roboto", Font.PLAIN, 18));
 		txtFechaS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt)  {
-//Activa el evento, después del usuario seleccionar las fechas se debe calcular el valor de la reserva
 				
 				
 				//CALCULO DIFERENCIA DE DIAS
@@ -169,13 +174,14 @@ public class ReservasView extends JFrame {
 					date2 = ReservasView.txtFechaS.getDate();
 					SimpleDateFormat sdf2 = new SimpleDateFormat();
 					
-					String s = sdf2.format(date);
-					String f = sdf2.format(date2);
-					System.out.println("imprimir 1" +s);
-					System.out.println("imprimir 2" +f);
+					String entrada = sdf2.format(date);
+					String salida = sdf2.format(date2);
+					System.out.println("imprimir 1" +entrada);
+					System.out.println("imprimir 2" +salida);
 					
 					System.out.println("time 1" +date.getTime()); // segundos optenidos 1
 					System.out.println("time 2" +date2.getTime()); // segundos optenidos 2
+					
 				} catch (Exception e1) {
 					
 					e1.printStackTrace();
@@ -197,14 +203,10 @@ public class ReservasView extends JFrame {
 					
 					txtValor.setText("$" + totalReserva);
 					txtValor.setColumns(40);
+					
 					}
-				}
-				
-				
-				//SOLO AGREGAR EL COSTO
-		        
-			}
-			
+				}	        
+			}		
 		});
 		
 		txtFechaS.setDateFormatString("MM/dd/yyyy");
@@ -371,13 +373,45 @@ public class ReservasView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {		
 					
-					//GUARDAR EN DATEBASE
-					//AGREGAR EL COSTO
-					//Fecha checkIn optenida y CheckOut 
-					fechaConfirmada();
+					//JComboBox<Format> formaPago = null;
+					//String formaPago = txtFormaPago.setSelectedItem(anchor);
 					
+					
+					String formaDePago = (String) txtFormaPago.getSelectedItem();
+					
+					
+					Date date = null;
+					Date date2 = null;
+					int valorReserva = 1200;
+					date = txtFechaE.getDate();
+					date2 = ReservasView.txtFechaS.getDate();
+					SimpleDateFormat sdf2 = new SimpleDateFormat();
+					
+					String entrada = sdf2.format(date);
+					String salida = sdf2.format(date2);
+					
+					long diff2 = date2.getTime() - date.getTime();
+					TimeUnit time = TimeUnit.DAYS; 
+					long diffrence = time.convert(diff2, TimeUnit.MILLISECONDS);
+					totalReserva = (int) (valorReserva * diffrence);
+
+					 
+					System.out.println("entrada.." + entrada);
+					System.out.println("salida... " +salida);
+					
+					Reserva reserva = new Reserva( entrada , salida, totalReserva, formaDePago);
+					System.out.println("SALIENDO RESERVA NUEVA");
+					try {
+						ReservaDao.saveReserva(reserva);
+						System.out.println("RESERVA CONFIRMADA ...");
+					} catch (SQLException e2) {
+						
+						e2.printStackTrace();
+					}
+					System.out.println("SALIENDO POR AQUí? 222");
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
+					System.out.println("SALIENDO POR AQUí? 333");
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
@@ -413,21 +447,19 @@ public class ReservasView extends JFrame {
 	        this.setLocation(x - xMouse, y - yMouse);
 }
 
-		public static List<Date> fechaConfirmada() {
+		//public fechaConfirmada() {
 			
-			Date fechaE;
-			Date fechaS;
+			//Date fechaE;
+			//Date fechaS;
 		
-			fechaE= txtFechaE.getDate();
-			fechaS = ReservasView.txtFechaS.getDate();
-			List<Date> fechaList = new ArrayList<>();
+			//fechaE= txtFechaE.getDate();
+			//fechaS = ReservasView.txtFechaS.getDate();
 			
-			fechaList.add(fechaE);
-			fechaList.add(fechaS);
-			System.out.println("saliendo lista" + fechaList.subList(0,2));
+		
+			///
 			
-			return fechaList;
 			
-		}
+			
+		//}
 
 }

@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import conexion.ControlHotel;
+import conexion.Eliminar;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -15,10 +16,13 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -28,6 +32,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Date;
 import java.sql.SQLException;
 
 @SuppressWarnings("serial")
@@ -138,7 +143,7 @@ public class Busqueda extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("SISTEMA DE BÚSQUEDA");
 		lblNewLabel_4.setForeground(new Color(12, 138, 199));
 		lblNewLabel_4.setFont(new Font("Roboto Black", Font.BOLD, 24));
-		lblNewLabel_4.setBounds(331, 62, 280, 42);
+		lblNewLabel_4.setBounds(331, 62, 380, 42);
 		contentPane.add(lblNewLabel_4);
 		
 		
@@ -279,6 +284,8 @@ public class Busqueda extends JFrame {
 		separator_1_2.setBounds(539, 159, 193, 2);
 		contentPane.add(separator_1_2);
 		
+		
+		
 		JPanel btnbuscar = new JPanel();
 		btnbuscar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -299,7 +306,15 @@ public class Busqueda extends JFrame {
 		lblBuscar.setForeground(Color.WHITE);
 		lblBuscar.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
+		//JPanel btnEditar = new JPanel();
 		JPanel btnEditar = new JPanel();
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+		
 		btnEditar.setLayout(null);
 		btnEditar.setBackground(new Color(12, 138, 199));
 		btnEditar.setBounds(635, 508, 122, 35);
@@ -313,7 +328,30 @@ public class Busqueda extends JFrame {
 		lblEditar.setBounds(0, 0, 122, 35);
 		btnEditar.add(lblEditar);
 		
+		
 		JPanel btnEliminar = new JPanel();
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("ELIMINADO");
+				int fila = tbHuespedes.getSelectedRowCount(); //Nos dirá que fila es seleccionada. 
+				if(fila < 1) {
+					System.out.println("Debe selecionar el elemento que desea borrar ");
+				} else {
+					try {
+						 ControlHotel.deleteDatos(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString()); //Eliminando lo seleccionado
+						 limpiar();
+						 cargarTablaHuespedes();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		
+		
 		btnEliminar.setLayout(null);
 		btnEliminar.setBackground(new Color(12, 138, 199));
 		btnEliminar.setBounds(767, 508, 122, 35);
@@ -328,6 +366,39 @@ public class Busqueda extends JFrame {
 		btnEliminar.add(lblEliminar);
 		setResizable(false);
 	}
+	public void limpiar() {
+		modeloH.setRowCount(0); 
+		modeloH.setRowCount(0);
+	}
+	/*private boolean noTieneFilaElegidaHuespedes() {
+		return tbHuespedes.getSelectedRowCount() == 0 || tbHuespedes.getSelectedColumnCount() == 0;
+	}
+	public void Eliminar() throws SQLException {
+		System.out.println("elimnando...");
+		if(noTieneFilaElegidaHuespedes()) {
+			JOptionPane.showMessageDialog(this, "Por favor, elija el item a eliminar");
+			return;
+		}
+		//if (noTieneFilaElegidaHuespedes()) {
+			
+			Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
+			.ifPresentOrElse(fila -> {
+				Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+				try {
+					Eliminar.eliminarHuesped(id);
+				} catch (SQLException e) {
+				
+					e.printStackTrace();
+				}
+
+				Exito.main(null);
+			}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+} */
+	//}
+	
+	//
+	
+	
 	
 //Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
