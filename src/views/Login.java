@@ -264,9 +264,6 @@ public class Login extends JFrame {
 	    
 		Map<String, String> dataUsuario = new HashMap<String, String>();
 		dataUsuario.put(usuario, contrase);
-		
-		System.out.println("LA WEA BIEN" + dataUsuario);
-	    
 	    return dataUsuario;
 	}
 	

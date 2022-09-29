@@ -412,6 +412,7 @@ public class ReservasView extends JFrame {
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
 					System.out.println("SALIENDO POR AQUí? 333");
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}

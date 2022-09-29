@@ -107,19 +107,24 @@ public class RegistroHuesped extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
-				dispose();				
+				int resp = JOptionPane.showConfirmDialog(null, "Se guardará  la Reserva sin Huesped ¿Desea salir de todos modos?");
+				if (JOptionPane.OK_OPTION == resp) {			
+					ReservasView reservas = new ReservasView();
+					reservas.setVisible(true);
+					dispose();
+				}			
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnAtras.setBackground(Color.white);
 				labelAtras.setForeground(Color.black);
+				
 			}			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				 btnAtras.setBackground(new Color(12, 138, 199));
 			     labelAtras.setForeground(Color.white);
+			     
 			}
 		});
 		
@@ -285,6 +290,7 @@ public class RegistroHuesped extends JFrame {
 					HuespedDAO.saveReserva(huesped);
 					System.out.println("Huesped CONFIRMADo ...");
 					Exito.main(null);
+					dispose();
 				} catch (SQLException e2) {
 					
 					e2.printStackTrace();
@@ -324,20 +330,25 @@ public class RegistroHuesped extends JFrame {
 		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/Ha-100px.png")));
 		
 		JPanel btnexit = new JPanel();
-		btnexit.setBounds(857, 0, 53, 36);
+		//btnexit.setBounds(857, 0, 53, 36);
 		contentPane.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
-				dispose();
+				 
+					int resp = JOptionPane.showConfirmDialog(null, "Se guardará  la Reserva sin Huesped ¿Desea cerrar sección de todos modos?");
+					if (JOptionPane.OK_OPTION == resp) {			
+						MenuPrincipal menu = new MenuPrincipal();
+						menu.setVisible(true);
+						dispose();
+				}
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
-			}			
+			}	
+			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				 btnexit.setBackground(Color.white);
@@ -346,9 +357,12 @@ public class RegistroHuesped extends JFrame {
 		});
 		btnexit.setLayout(null);
 		btnexit.setBackground(Color.white);
+		btnexit.setBounds(865, 0, 53, 36);
+		header.add(btnexit);
 		
 		labelExit = new JLabel("X");
-		labelExit.setBounds(0, 0, 53, 36);
+		labelExit.setBounds(0, 0, 43, 36);
+		
 		btnexit.add(labelExit);
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 		labelExit.setForeground(SystemColor.black);

@@ -186,6 +186,56 @@ public static Connection getConnection() throws SQLException {
 		return modificarHuesped;
 		
 	}
+	
+	public static List<Map<String, String>> buscarApellido(String busquedaIdHuesped) throws SQLException {
+		Connection con = new conecctionfactory().recuperaConexion();
+		
+		PreparedStatement statement = con.prepareStatement("SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_reserva FROM huespedes WHERE apellido = ?");
+		statement.setString(1, busquedaIdHuesped);
+		
+		statement.execute();
+		
+		ResultSet resultSetBuscarH = statement.getResultSet();
+		List<Map<String, String>> datosBuscarH = new ArrayList<Map<String, String>>();	
+		while(resultSetBuscarH.next()) {
+			Map<String, String> fila = new HashMap<String, String>();
+			fila.put("id", String.valueOf(resultSetBuscarH.getInt("id")));
+			fila.put("nombre", resultSetBuscarH.getString("nombre"));
+			fila.put("apellido", resultSetBuscarH.getString("apellido"));
+			fila.put("fecha_nacimiento", resultSetBuscarH.getString("fecha_nacimiento"));
+			fila.put("nacionalidad", resultSetBuscarH.getString("nacionalidad"));
+			fila.put("telefono", String.valueOf(resultSetBuscarH.getInt("telefono")));
+			fila.put("id_reserva", String.valueOf(resultSetBuscarH.getInt("id_reserva")));
+			datosBuscarH.add(fila);
+			System.out.println("SALIENDO FILA " + fila);
+		}
+		con.close();
+		return datosBuscarH;
+	}
+	
+	public static List<Map<String, String>> buscarIdReserva(String busquedaIdReservas) throws SQLException {
+		Connection con = new conecctionfactory().recuperaConexion();
+		
+		PreparedStatement statement = con.prepareStatement("SELECT id, fecha_entrada, fechaSalida, valor, forma_de_pago FROM reservas WHERE id = ?");
+		statement.setInt(1, Integer.parseInt(busquedaIdReservas));
+		
+		statement.execute();
+		
+		ResultSet resultSetBuscarR = statement.getResultSet();
+		List<Map<String, String>> datosBuscarR = new ArrayList<Map<String, String>>();	
+		while(resultSetBuscarR.next()) {
+			Map<String, String> fila = new HashMap<String, String>();
+			fila.put("id", String.valueOf(resultSetBuscarR.getInt("id")));
+			fila.put("fecha_entrada", resultSetBuscarR.getString("fecha_entrada"));
+			fila.put("fechaSalida", resultSetBuscarR.getString("fechaSalida"));
+			fila.put("valor", String.valueOf(resultSetBuscarR.getInt("valor")));
+			fila.put("forma_de_pago", resultSetBuscarR.getString("forma_de_pago"));
+			datosBuscarR.add(fila);
+			System.out.println("SALIENDO FILA Reserva " + fila);
+		}
+		con.close();
+		return datosBuscarR;
+	}
 }
 
 
