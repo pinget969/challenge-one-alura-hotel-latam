@@ -83,11 +83,6 @@ public static Connection getConnection() throws SQLException {
 			fila.put("id_reserva", String.valueOf(resultSet.getInt("id_reserva")));
 			resultado.add(fila);
 			
-			System.out.println(fila.get("id"));
-			System.out.println(fila.values());
-			System.out.println(fila);
-			 
-			
 		}
 		
 		con.close();
@@ -187,10 +182,39 @@ public static Connection getConnection() throws SQLException {
 		
 	}
 	
-	public static List<Map<String, String>> buscarApellido(String busquedaIdHuesped) throws SQLException {
+	public static List<Map<String, String>> buscarApellido(String busquedaApellidoHuespe) throws SQLException {
+		System.out.println("buscarApellido " + busquedaApellidoHuespe);
 		Connection con = new conecctionfactory().recuperaConexion();
 		
 		PreparedStatement statement = con.prepareStatement("SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_reserva FROM huespedes WHERE apellido = ?");
+		statement.setString(1, busquedaApellidoHuespe);
+		
+		statement.execute();
+		
+		ResultSet resultSetBuscarH = statement.getResultSet();
+		List<Map<String, String>> datosBuscarH = new ArrayList<Map<String, String>>();	
+		while(resultSetBuscarH.next()) {
+			Map<String, String> fila = new HashMap<String, String>();
+			fila.put("id", String.valueOf(resultSetBuscarH.getInt("id")));
+			fila.put("nombre", resultSetBuscarH.getString("nombre"));
+			fila.put("apellido", resultSetBuscarH.getString("apellido"));
+			fila.put("fecha_nacimiento", resultSetBuscarH.getString("fecha_nacimiento"));
+			fila.put("nacionalidad", resultSetBuscarH.getString("nacionalidad"));
+			fila.put("telefono", String.valueOf(resultSetBuscarH.getInt("telefono")));
+			fila.put("id_reserva", String.valueOf(resultSetBuscarH.getInt("id_reserva")));
+			datosBuscarH.add(fila);
+			System.out.println("SALIENDO FILA " + fila);
+		}
+		con.close();
+		return datosBuscarH;
+	}
+	public static List<Map<String, String>> buscarIdHuesped(String busquedaIdHuesped) throws SQLException {
+		System.out.println("buscarIdHuesped " + busquedaIdHuesped);
+		String s = "ñ";
+        System.out.println("IsNumeric: " + isNumeric(s));
+		Connection con = new conecctionfactory().recuperaConexion();
+		
+		PreparedStatement statement = con.prepareStatement("SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_reserva FROM huespedes WHERE id_reserva = ?");
 		statement.setString(1, busquedaIdHuesped);
 		
 		statement.execute();
@@ -212,17 +236,34 @@ public static Connection getConnection() throws SQLException {
 		con.close();
 		return datosBuscarH;
 	}
+
+	
 	
 	public static List<Map<String, String>> buscarIdReserva(String busquedaIdReservas) throws SQLException {
+		
+		List<Map<String, String>> datosBuscarR = new ArrayList<Map<String, String>>();	
+		
+		System.out.println( "buscarIdReserva " + busquedaIdReservas);
+		
+		String letra = busquedaIdReservas;
+        
+        if(isNumeric(letra)) {
+        
 		Connection con = new conecctionfactory().recuperaConexion();
 		
 		PreparedStatement statement = con.prepareStatement("SELECT id, fecha_entrada, fechaSalida, valor, forma_de_pago FROM reservas WHERE id = ?");
-		statement.setInt(1, Integer.parseInt(busquedaIdReservas));
+		
+		try {
+			statement.setInt(1, Integer.parseInt(busquedaIdReservas));
+
+		} catch (Exception e) {
+			
+		}
 		
 		statement.execute();
 		
 		ResultSet resultSetBuscarR = statement.getResultSet();
-		List<Map<String, String>> datosBuscarR = new ArrayList<Map<String, String>>();	
+		//List<Map<String, String>> datosBuscarR = new ArrayList<Map<String, String>>();	
 		while(resultSetBuscarR.next()) {
 			Map<String, String> fila = new HashMap<String, String>();
 			fila.put("id", String.valueOf(resultSetBuscarR.getInt("id")));
@@ -234,8 +275,23 @@ public static Connection getConnection() throws SQLException {
 			System.out.println("SALIENDO FILA Reserva " + fila);
 		}
 		con.close();
+		
 		return datosBuscarR;
 	}
+        return datosBuscarR;
+	}
+	
+	
+    
+	
+	public static boolean isNumeric(String s)
+    {
+        if (s == null || s.equals("")) {
+            return false;
+        }
+ 
+        return s.chars().allMatch(Character::isDigit);
+    }
 }
 
 

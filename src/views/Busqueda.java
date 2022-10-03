@@ -22,9 +22,13 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -286,6 +290,7 @@ public class Busqueda extends JFrame {
 				if(txtBuscar.getText().length()==0) {
 					JOptionPane.showMessageDialog(null, "Ingrese un Apellido o número ID de reserva",
 							  "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+					
 					limpiar();
 					cargarTablaHuespedes();
 					cargarTablaReserva();
@@ -475,9 +480,10 @@ public class Busqueda extends JFrame {
 	
 	public void buscarApellidoHuesped() throws SQLException{
 		//APELLIDO Y Nº DE RESERVA
-
+			String id_reserva ="0";
 			String busquedaApellidoHuesped =  txtBuscar.getText();
 			List<Map<String, String>> busquedaH = new ArrayList<Map<String, String>>();
+			
 			try {
 				busquedaH = ControlHotel.buscarApellido(busquedaApellidoHuesped);
 				busquedaH.forEach(busqueda -> modeloH.addRow(
@@ -493,12 +499,49 @@ public class Busqueda extends JFrame {
 			}catch (SQLException e) {
 				e.printStackTrace();
 				throw new RuntimeException(e);
+				
 			}
-		
+			
+			try {
+				 //EXTRACCIÓN ID_RESERVA DE HUESPED
+				 for ( Map<String, String> key : busquedaH ) {
+					 id_reserva =  key.get("id_reserva");
+					 ControlHotel.buscarIdReserva(id_reserva);
+			        }
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+			
+			List<Map<String, String>> busquedaRId = new ArrayList<Map<String, String>>();
+			
+			try {
+				busquedaRId = ControlHotel.buscarIdReserva(id_reserva);
+				busquedaRId.forEach(e -> modelo.addRow(
+						new Object[] {
+								e.get("id"),
+								e.get("fecha_entrada"),
+								e.get("fechaSalida"),
+								e.get("valor"),
+								e.get("forma_de_pago"),
+						}));
+				
+			}catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+			
+			
 		}
+	
+	
+	
 	public void buscarIdReserva() {
 		String busquedaIdReserva = txtBuscar.getText();
+		
 		List<Map<String, String>> busquedaR = new ArrayList<Map<String, String>>();
+		
 		try {
 			busquedaR = ControlHotel.buscarIdReserva(busquedaIdReserva);
 			busquedaR.forEach(e -> modelo.addRow(
@@ -510,6 +553,23 @@ public class Busqueda extends JFrame {
 							e.get("forma_de_pago"),
 					}));
 			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		List<Map<String, String>> busquedaH = new ArrayList<Map<String, String>>();
+		try {
+			busquedaH = ControlHotel.buscarIdHuesped(busquedaIdReserva);
+			busquedaH.forEach(busqueda -> modeloH.addRow(
+					new Object[] {
+							busqueda.get("id"),
+							busqueda.get("nombre"),
+							busqueda.get("apellido"),
+							busqueda.get("fecha_nacimiento"),
+							busqueda.get("nacionalidad"),
+							busqueda.get("telefono"),
+							busqueda.get("id_reserva"),
+					}));
 		}catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
