@@ -1,9 +1,11 @@
-package conexion;
+package reserva;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import conexion.conecctionfactory;
 
 public class ReservaDao {
 	static int id = 0;

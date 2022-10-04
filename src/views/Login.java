@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import conexion.ControlLogin;
+import controller.ControlLogin;
 
 import java.awt.Color;
 import javax.swing.JLabel;

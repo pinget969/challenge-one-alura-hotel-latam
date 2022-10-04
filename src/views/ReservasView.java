@@ -15,8 +15,8 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
-import conexion.Reserva;
-import conexion.ReservaDao;
+import reserva.Reserva;
+import reserva.ReservaDao;
 
 import java.awt.Font;
 import javax.swing.JComboBox;

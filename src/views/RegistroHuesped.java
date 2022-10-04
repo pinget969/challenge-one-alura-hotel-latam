@@ -8,10 +8,9 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
 
-//import conexion.ControlReservaHuesped;
-import conexion.Huesped;
-import conexion.HuespedDAO;
-import conexion.ReservaDao;
+import huesped.Huesped;
+import huesped.HuespedDAO;
+import reserva.ReservaDao;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;

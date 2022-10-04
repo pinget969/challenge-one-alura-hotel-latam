@@ -1,4 +1,4 @@
-package conexion;
+package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
+
+import conexion.conecctionfactory;
 
 public class ControlHotel {
 	public static Connection con;

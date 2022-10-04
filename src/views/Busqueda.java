@@ -8,8 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import conexion.ControlHotel;
-//import conexion.Eliminar;
+import controller.ControlHotel;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;

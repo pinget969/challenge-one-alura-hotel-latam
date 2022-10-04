@@ -1,4 +1,4 @@
-package conexion;
+package principal;
 
 import java.sql.Connection;
 
@@ -17,7 +17,5 @@ public class baseOn {
 		 MenuPrincipal menu = new MenuPrincipal();
 		 menu.setVisible(true);
 		 menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
 	}
-	 
 }

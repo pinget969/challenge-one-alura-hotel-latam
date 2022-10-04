@@ -1,4 +1,4 @@
-package conexion;
+package reserva;
 
 public class Reserva {
 	private String fechaEntrada;

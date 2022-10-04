@@ -1,4 +1,4 @@
-package conexion;
+package controller;
 
 import java.sql.SQLException;
 /*

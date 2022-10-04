@@ -1,4 +1,4 @@
-package conexion;
+package huesped;
 
 public class Huesped {
 	String nombre;
