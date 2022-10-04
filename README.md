@@ -26,7 +26,7 @@
 [![07.jpg](https://i.postimg.cc/3w4cFqHJ/07.jpg)](https://postimg.cc/WDV82X3Q)
 [![08.jpg](https://i.postimg.cc/NfsCzFwn/08.jpg)](https://postimg.cc/jC1hWs26)
 [![09.jpg](https://i.postimg.cc/cHGXM4mX/09.jpg)](https://postimg.cc/4Kw6XGj9)
-[![10.jpg](https://i.postimg.cc/XqQLbK0z/10.jpg)](https://postimg.cc/5QQL5CyB)
+[![02-copia.jpg](https://i.postimg.cc/ZYp1zMny/02-copia.jpg)](https://postimg.cc/BtZhxNxq)
 
 
 </br>
