@@ -18,7 +18,7 @@
 ---
 ##  Funcionabilidad Hotel Barbinchair: </br>
 [![01.jpg](https://i.postimg.cc/ZRnL4BV7/01.jpg)](https://postimg.cc/wyKNkvKL)
-[![02.jpg](https://i.postimg.cc/KjHGwV4p/02.jpg)](https://postimg.cc/vx5w60r5)
+[![01-copia.jpg](https://i.postimg.cc/YCY7nCFT/01-copia.jpg)](https://postimg.cc/pmW3yxqB)
 [![03.jpg](https://i.postimg.cc/j2mTZ7kG/03.jpg)](https://postimg.cc/PvW0qPH4)
 [![04.jpg](https://i.postimg.cc/B6bRkvDs/04.jpg)](https://postimg.cc/WFR9JTXf)
 [![01-copia-4.jpg](https://i.postimg.cc/8PbQ7xT2/01-copia-4.jpg)](https://postimg.cc/2V3XJcbG)
