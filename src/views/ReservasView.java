@@ -74,7 +74,7 @@ public class ReservasView extends JFrame {
 		
 		
 		super("Reserva");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40-01px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
 		setResizable(false);
@@ -172,15 +172,11 @@ public class ReservasView extends JFrame {
 				try {
 					date = txtFechaE.getDate();
 					date2 = ReservasView.txtFechaS.getDate();
-					SimpleDateFormat sdf2 = new SimpleDateFormat();
+					//SimpleDateFormat sdf2 = new SimpleDateFormat();
 					
-					String entrada = sdf2.format(date);
-					String salida = sdf2.format(date2);
-					System.out.println("imprimir 1" +entrada);
-					System.out.println("imprimir 2" +salida);
+					//String entrada = sdf2.format(date);
+				//	String salida = sdf2.format(date2);
 					
-					System.out.println("time 1" +date.getTime()); // segundos optenidos 1
-					System.out.println("time 2" +date2.getTime()); // segundos optenidos 2
 					
 				} catch (Exception e1) {
 					
@@ -267,13 +263,13 @@ public class ReservasView extends JFrame {
 		JLabel logo = new JLabel("");
 		logo.setBounds(197, 68, 104, 107);
 		panel_1.add(logo);
-		logo.setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/Ha-100-01px.png")));
 		
 		JLabel imagenFondo = new JLabel("");
 		imagenFondo.setBounds(0, 140, 500, 409);
 		panel_1.add(imagenFondo);
 		imagenFondo.setBackground(Color.WHITE);
-		imagenFondo.setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/reservas-img-3.png")));
+		imagenFondo.setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/reservas-img-5.png")));
 		
 		JPanel btnexit = new JPanel();
 		btnexit.addMouseListener(new MouseAdapter() {
@@ -371,15 +367,8 @@ public class ReservasView extends JFrame {
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {		
-					
-					//JComboBox<Format> formaPago = null;
-					//String formaPago = txtFormaPago.setSelectedItem(anchor);
-					
-					
+				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {			
 					String formaDePago = (String) txtFormaPago.getSelectedItem();
-					
-					
 					Date date = null;
 					Date date2 = null;
 					int valorReserva = 1200;
@@ -408,10 +397,8 @@ public class ReservasView extends JFrame {
 						
 						e2.printStackTrace();
 					}
-					System.out.println("SALIENDO POR AQUí? 222");
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
-					System.out.println("SALIENDO POR AQUí? 333");
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
@@ -447,20 +434,5 @@ public class ReservasView extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
-
-		//public fechaConfirmada() {
-			
-			//Date fechaE;
-			//Date fechaS;
-		
-			//fechaE= txtFechaE.getDate();
-			//fechaS = ReservasView.txtFechaS.getDate();
-			
-		
-			///
-			
-			
-			
-		//}
 
 }

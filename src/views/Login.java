@@ -76,15 +76,15 @@ public class Login extends JFrame {
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(12, 138, 199));
+		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBounds(484, 0, 304, 527);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel imgHotel = new JLabel("");
-		imgHotel.setBounds(0, 0, 304, 538);
+		imgHotel.setBounds(-38, -10, 497, 580);
 		panel_1.add(imgHotel);
-		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/img-hotel-login-.png")));
+		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/img-hotel-login-02.png")));
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
@@ -226,7 +226,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/imagenes/lOGO-50PX.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/imagenes/lOGO-50-01PX.png")));
 		lblNewLabel_1.setBounds(65, 65, 48, 59);
 		panel.add(lblNewLabel_1);
 		
